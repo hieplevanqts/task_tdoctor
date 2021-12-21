@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Task - Lê Văn Hiệp</title>
+</head>
+
+<body ng-app="Task">
+    <h3 class="container mt-3">
+        <div class="alert alert-warning" role="alert">
+            Mô hình Gail về nguy cơ ung thư vú 5 năm (tài liệu năm 1999)
+        </div>
+    </h3>
+    <div class="container mb-5" ng-controller="initTask">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Nhập dữ liệu</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <h6 for="">Tuổi lần đầu tiên hành kinh</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-value="1" for="defaultCheck1" ng-model="first_menstruation" ng-click="calculate()"
+                                    name="first_menstruation" ng-checked="1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Tuổi có lần hành kinh đầu tiên >=14 tuổi (1.00)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-value="1.1" for="defaultCheck2" ng-model="first_menstruation" ng-click="calculate()"
+                                    name="first_menstruation">
+                                <label class="form-check-label" for="defaultCheck2">
+                                    12-13 tuổi (1.10)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-value="1.21" for="defaultCheck3" ng-model="first_menstruation" ng-click="calculate()"
+                                    name="first_menstruation">
+                                <label class="form-check-label" for="defaultCheck3">
+                                    nhỏ hơn 12 tuổi (1.21)
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <h6>Số lần sinh thiết</h6>
+                            <select name="" id="" class="form-control" ng-model="biopsy" ng-change="calculate()" ng-init="biopsy = '1.00'">
+                                <option value="" disabled><b>Tuổi lúc tư vấn &lt;50&nbsp;tuổi:</b></option>
+                                <option value="1.00" ng-selected> Không sinh thiết (1.00)</option>
+                                <option value="1.70"> 1&nbsp;lần sinh thiết (1.70)</option>
+                                <option value="2.88"> &gt;=2&nbsp;lần sinh thiết (2.88)</option>
+                                <option value="" disabled> </option>
+                                <option value="" disabled> <b>Tuổi lúc tư vấn &gt;=50&nbsp;tuổi:</b></option>
+                                <option value="1.00"> Không sinh thiết (1.00)</option>
+                                <option value="1.27"> 1&nbsp;lần sinh thiết (1.27)</option>
+                                <option value="1.62"> &gt;=2&nbsp;lần sinh thiết (1.62)</option>
+                                <option value="" disabled>_______________________________________</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <h6>Tuổi Sinh con lần đầu tiên Số người thân</h6>
+                            <select name="" id="" class="form-control" ng-model="firstTime" ng-change="calculate()" ng-init="firstTime = '1.00'">
+                                <option value="" disabled> Tuổi lúc sinh con lần đầu tiên &lt;20&nbsp;tuổi:</option>
+                                <option value="1.00"> Không có người thân trực hệ bị ung thư vú (1.00)</option>
+                                <option value="2.61"> 1&nbsp;người thân trực hệ bị ung thư vú (2.61)</option>
+                                <option value="6.80"> &gt;=2&nbsp;người thân trực hệ bị ung thư vú (6.80)</option>
+                                <option value="" disabled> </option>
+                                <option value="" disabled> Tuổi lúc sinh con lần đầu tiên 20-24&nbsp;tuổi:</option>
+                                <option value="1.24"> Không có người thân trực hệ bị ung thư vú (1.24)</option>
+                                <option value="2.68"> 1&nbsp;người thân trực hệ bị ung thư vú (2.68)</option>
+                                <option value="5.78"> &gt;=2&nbsp;người thân trực hệ bị ung thư vú (5.78)</option>
+                                <option value="" disabled> </option>
+                                <option value="" disabled> Tuổi lúc sinh con lần đầu tiên 25-29&nbsp;tuổi hoặc chưa sinh
+                                    đẻ:</option>
+                                <option value="1.55"> Không có người thân trực hệ bị ung thư vú (1.55)</option>
+                                <option value="2.76"> 1&nbsp;người thân trực hệ bị ung thư vú (2.76)</option>
+                                <option value="4.91"> &gt;=2&nbsp;người thân trực hệ bị ung thư vú (4.91)</option>
+                                <option value="" disabled> </option>
+                                <option value="" disabled> Tuổi lúc sinh con lần đầu tiên &gt;30&nbsp;tuổi:</option>
+                                <option value="1.93"> Không có người thân trực hệ bị ung thư vú (1.93)</option>
+                                <option value="2.83"> 1&nbsp;người thân trực hệ bị ung thư vú (2.83)</option>
+                                <option value="4.17"> &gt;=2&nbsp;người thân trực hệ bị ung thư vú (4.17)</option>
+                                <option value="" disabled>_______________________________________</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <h6 for="">Tăng sản Không điển hình</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-value="1" for="hyperplasia_atypical1" ng-model="hyperplasiaAtypical" ng-click="calculate()"
+                                    name="hyperplasia_atypical" checked>
+                                <label class="form-check-label" for="hyperplasia_atypical1">
+                                    Không sinh thiết (1.00)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-value="0.93" for="hyperplasia_atypical2" ng-model="hyperplasiaAtypical" ng-click="calculate()"
+                                    name="hyperplasia_atypical">
+                                <label class="form-check-label" for="hyperplasia_atypical2">
+                                    Ít nhất một sinh thiết và không thấy tăng sản không điển hình trong bất kỳ mẫu bệnh
+                                    phẩm sinh thiết nào (0.93)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-value="1" for="hyperplasia_atypical3" ng-model="hyperplasiaAtypical" ng-click="calculate()"
+                                    name="hyperplasia_atypical">
+                                <label class="form-check-label" for="hyperplasia_atypical3">
+                                    Không thấy tăng sản không điển hình và không rõ tình trạng tăng sản với ít nhất một
+                                    mẫu bệnh phẩm sinh thiết (1.00)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-value="1.82" for="hyperplasia_atypical4" ng-model="hyperplasiaAtypical" ng-click="calculate()"
+                                    name="hyperplasia_atypical">
+                                <label class="form-check-label" for="hyperplasia_atypical4">
+                                    Thấy có tăng sản không điển hình trong ít nhất một mẫu bệnh phẩm sinh thiết (1.82)
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <h6>Lần khám cơ bản Tuổi Chủng tộc</h6>
+                            <select name="race" id="" class="form-control" ng-model="race" ng-change="calculate()" ng-init="race = '0.014'">
+                                <option value="" disabled> Tuổi của bệnh nhân -- Phụ nữ da đen</option>
+                                <option value="0.014"> 20-24 (0.014)</option>
+                                <option value="0.050"> 25-29 (0.050)</option>
+                                <option value="0.120"> 30-34 (0.120)</option>
+                                <option value="0.224"> 35-39 (0.224)</option>
+                                <option value="0.310"> 40-44 (0.310)</option>
+                                <option value="0.355"> 45-49 (0.355)</option>
+                                <option value="0.416"> 50-54 (0.416)</option>
+                                <option value="0.511"> 55-59 (0.511)</option>
+                                <option value="0.562"> 60-64 (0.562)</option>
+                                <option value="0.586"> 65-69 (0.586)</option>
+                                <option value="0.646"> 70-74 (0.646)</option>
+                                <option value="0.713"> 75-79 (0.713)</option>
+                                <option value="0.659"> 80-84 (0.659)</option>
+                                <option value="" disabled> Tuổi của bệnh nhân -- Phụ nữ da trắng ( )</option>
+                                <option value="0.012"> 20-24 (0.012)</option>
+                                <option value="0.049"> 25-29 (0.049)</option>
+                                <option value="0.134"> 30-34 (0.134)</option>
+                                <option value="0.278"> 35-39 (0.278)</option>
+                                <option value="0.450"> 40-44 (0.450)</option>
+                                <option value="0.584"> 45-49 (0.584)</option>
+                                <option value="0.703"> 50-54 (0.703)</option>
+                                <option value="0.859"> 55-59 (0.859)</option>
+                                <option value="1.018"> 60-64 (1.018)</option>
+                                <option value="1.116"> 65-69 (1.116)</option>
+                                <option value="1.157"> 70-74 (1.157)</option>
+                                <option value="1.140"> 75-79 (1.140)</option>
+                                <option value="1.006"> 80-84 (1.006)</option>
+                                <option value="" disabled>_______________________________________</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Kết quả</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-7 col-form-label">Nguy cơ tương đối</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" id="staticEmail" value="relativeRisk" ng-model="relativeRisk">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-7 col-form-label">Nguy cơ tuyệt đối</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" id="" placeholder="" value="absoluteDanger" ng-model=absoluteDanger>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-7 col-form-label">Làm tròn thập phân</label>
+                            <div class="col-sm-5">
+                                <select type="text" class="form-control" id="" placeholder="" ng-model="decimalPrecision" ng-init="decimalPrecision = '2'"  ng-change="calculate()">
+                                        <option value="0">0</option>
+                                        <option value="1">0.0</option>
+                                        <option value="2">0.00</option>
+                                        <option value="3">0.000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+    <script>
+        
+var app = angular.module('Task',[]);
+
+
+
+
+
+        app.controller('initTask',['$scope','$http',function($scope, $http, $window){
+            $scope.first_menstruation = 1;
+            $scope.hyperplasiaAtypical = 1;
+            $scope.decimalPrecision = 2;
+            angular.element(document).ready(function () {
+               $scope.calculate()
+            });
+
+            $scope.calculate = function ()
+            {
+                $scope.relativeRisk = $scope.first_menstruation * $scope.biopsy * $scope.firstTime * $scope.hyperplasiaAtypical;
+                $scope.absoluteDanger = $scope.relativeRisk * $scope.race;
+                let decimalPrecision = $scope.decimalPrecision;
+                switch (decimalPrecision) {
+                    case "0":
+                        $scope.relativeRisk = parseFloat($scope.relativeRisk).toFixed(0);
+                        $scope.absoluteDanger = parseFloat($scope.absoluteDanger).toFixed(0);
+                        break;
+                    case "1":
+                        $scope.relativeRisk = parseFloat($scope.relativeRisk).toFixed(1);
+                        $scope.absoluteDanger = parseFloat($scope.absoluteDanger).toFixed(1);
+                        break;
+                    case "2":
+                        $scope.relativeRisk = parseFloat($scope.relativeRisk).toFixed(2);
+                        $scope.absoluteDanger =  parseFloat($scope.absoluteDanger).toFixed(2);
+                        break;
+                    default:
+                        $scope.relativeRisk = parseFloat($scope.relativeRisk).toFixed(3);
+                        $scope.absoluteDanger = parseFloat($scope.absoluteDanger).toFixed(3);
+                        break;
+                }
+
+                
+            }
+
+        }]);
+    </script>
+
+</body>
+
+</html>
